@@ -22,9 +22,9 @@ public class TestController {
   @GetMapping("/list")
   public List<String> get(
       HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-    String currentOrigin = httpServletRequest.getHeader("Origin");
-    httpServletResponse.setHeader("Access-Control-Allow-Origin", currentOrigin);
-    httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
+    //    String currentOrigin = httpServletRequest.getHeader("Origin");
+    //    httpServletResponse.setHeader("Access-Control-Allow-Origin", currentOrigin);
+    //    httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
     return testMapper.get();
   }
 }
