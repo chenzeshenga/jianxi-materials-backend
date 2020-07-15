@@ -5,7 +5,7 @@ spring:
     username: materials
     password: Materials@123
 server:
-  port: 8888
+  port: 8889
   servlet:
     multipart:
       max-file-size: 20MB
