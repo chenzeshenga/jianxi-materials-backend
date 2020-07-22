@@ -18,20 +18,22 @@ import java.io.OutputStream;
  */
 @RestController
 @RequestMapping("/img")
+@CrossOrigin("*")
 public class ImgController {
 
-  @Resource private ImgMapper imgMapper;
+    @Resource
+    private ImgMapper imgMapper;
 
-  @GetMapping("/{uuid}")
-  @ResponseBody
-  public void getImg(@PathVariable String uuid, HttpServletResponse httpServletResponse)
-      throws IOException {
-    Img image = imgMapper.getImgByUuid(uuid);
-    httpServletResponse.setContentType("image/jpeg");
-    OutputStream outputStream = httpServletResponse.getOutputStream();
-    InputStream in = new ByteArrayInputStream(image.getImg());
-    IOUtils.copy(in, outputStream);
-    in.close();
-    outputStream.close();
-  }
+    @GetMapping("/{uuid}")
+    @ResponseBody
+    public void getImg(@PathVariable String uuid, HttpServletResponse httpServletResponse)
+            throws IOException {
+        Img image = imgMapper.getImgByUuid(uuid);
+        httpServletResponse.setContentType("image/jpeg");
+        OutputStream outputStream = httpServletResponse.getOutputStream();
+        InputStream in = new ByteArrayInputStream(image.getImg());
+        IOUtils.copy(in, outputStream);
+        in.close();
+        outputStream.close();
+    }
 }
