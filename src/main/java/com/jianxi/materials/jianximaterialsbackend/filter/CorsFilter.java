@@ -27,7 +27,7 @@ public class CorsFilter implements Filter {
         httpServletResponse.setHeader("Access-Control-Allow-Headers", "Content-Type,XFILENAME,XFILECATEGORY,XFILESIZE,x-requested-with,Authorization");
         httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
         String method = httpServletRequest.getMethod();
-        if (method.equalsIgnoreCase("OPTIONS")) {
+        if ("OPTIONS".equalsIgnoreCase(method)) {
             servletResponse.getOutputStream().write("Success".getBytes("utf-8"));
         } else {
             filterChain.doFilter(servletRequest, servletResponse);
