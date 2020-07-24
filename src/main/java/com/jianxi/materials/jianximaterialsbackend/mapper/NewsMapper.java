@@ -1,10 +1,7 @@
 package com.jianxi.materials.jianximaterialsbackend.mapper;
 
 import com.jianxi.materials.jianximaterialsbackend.pojo.News;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -21,10 +18,19 @@ public interface NewsMapper {
     @Update("update m_news set title=#{title},time=#{time},content=#{content} where id=#{id}")
     int update(News news);
 
-    @Select("select * from m_news where type=#{type} limit #{from},#{size}")
+    @Select("select * from m_news where type=#{type} order by id desc limit #{from},#{size}")
     List<News> list(String type, int from, int size);
+
+    @Select("select * from m_news order by id desc limit #{from},#{size}")
+    List<News> listAll(int from, int size);
 
     @Select("select count(*) as total from m_news where type=#{type}")
     long total(String type);
+
+    @Select("select count(*) as total from m_news")
+    long totalAll();
+
+    @Delete("delete from m_news where id=#{id}")
+    int delete(String id);
 
 }

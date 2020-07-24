@@ -44,4 +44,19 @@ public class NewsController {
         return new Pagination<>(newsList, total, current, size);
     }
 
+    @PostMapping("list")
+    public Pagination<News> listAll(@RequestBody Pagination pagination) {
+        int current = pagination.getCurrent();
+        int size = pagination.getSize();
+        List<News> newsList = newsMapper.listAll((current - 1) * size, size);
+        long total = newsMapper.totalAll();
+        return new Pagination<>(newsList, total, current, size);
+    }
+
+    @GetMapping("/delete/{newsId}")
+    public void delete(@PathVariable String newsId) {
+        log.info("delete news id as {}", newsId);
+        newsMapper.delete(newsId);
+    }
+
 }
