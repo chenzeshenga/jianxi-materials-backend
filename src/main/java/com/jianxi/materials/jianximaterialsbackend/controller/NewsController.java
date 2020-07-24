@@ -59,4 +59,9 @@ public class NewsController {
         newsMapper.delete(newsId);
     }
 
+    @GetMapping()
+    public News getNews(@RequestParam String newsId) {
+        return newsMapper.getNews(newsId);
+    }
+
 }

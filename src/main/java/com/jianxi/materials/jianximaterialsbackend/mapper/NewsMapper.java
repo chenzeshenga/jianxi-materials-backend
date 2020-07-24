@@ -33,4 +33,7 @@ public interface NewsMapper {
     @Delete("delete from m_news where id=#{id}")
     int delete(String id);
 
+    @Select("select * from m_news where id=#{id} limit 1")
+    News getNews(String newsId);
+
 }
