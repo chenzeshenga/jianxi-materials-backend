@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Select;
 @CacheNamespace
 public interface ImgMapper {
 
-  @Select("select uuid,img,ctime,name from m_img where uuid=#{uuid}")
-  Img getImgByUuid(String uuid);
+    @Select("select uuid,img,ctime,name from m_img where uuid=#{uuid}")
+    Img getImgByUuid(String uuid);
 }
