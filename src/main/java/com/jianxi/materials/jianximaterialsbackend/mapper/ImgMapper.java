@@ -2,6 +2,7 @@ package com.jianxi.materials.jianximaterialsbackend.mapper;
 
 import com.jianxi.materials.jianximaterialsbackend.pojo.Img;
 import org.apache.ibatis.annotations.CacheNamespace;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -15,4 +16,8 @@ public interface ImgMapper {
 
     @Select("select uuid,img,ctime,name from m_img where uuid=#{uuid}")
     Img getImgByUuid(String uuid);
+
+    @Insert("insert into m_img(uuid,img) values (#{uuid},#{img})")
+    int insert(Img img);
+
 }

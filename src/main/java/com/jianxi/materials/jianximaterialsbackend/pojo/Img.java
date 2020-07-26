@@ -18,8 +18,14 @@ import java.util.Date;
 @NoArgsConstructor
 public class Img implements Serializable {
 
-  private String uuid;
-  private byte[] img;
-  private Date ctime;
-  private String name;
+    private String uuid;
+    private byte[] img;
+    private Date ctime;
+    private String name;
+
+    public Img(String uuid, byte[] img) {
+        this.uuid = uuid;
+        this.img = img;
+    }
+
 }

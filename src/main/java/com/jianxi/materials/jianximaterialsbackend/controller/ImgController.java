@@ -4,6 +4,7 @@ import com.jianxi.materials.jianximaterialsbackend.mapper.ImgMapper;
 import com.jianxi.materials.jianximaterialsbackend.pojo.Img;
 import org.apache.commons.io.IOUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.UUID;
 
 /**
  * @author chenzeshenga
@@ -35,5 +37,14 @@ public class ImgController {
         IOUtils.copy(in, outputStream);
         in.close();
         outputStream.close();
+    }
+
+    @PostMapping(value = "/img")
+    public String putImg(@RequestParam(value = "file") MultipartFile multipartFile)
+            throws IOException {
+        String uuid = UUID.randomUUID().toString();
+        Img img = new Img(uuid, multipartFile.getBytes());
+        imgMapper.insert(img);
+        return uuid;
     }
 }
