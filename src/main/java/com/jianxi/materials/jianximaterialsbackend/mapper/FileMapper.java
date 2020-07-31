@@ -1,7 +1,6 @@
 package com.jianxi.materials.jianximaterialsbackend.mapper;
 
 import com.jianxi.materials.jianximaterialsbackend.pojo.File;
-import com.jianxi.materials.jianximaterialsbackend.pojo.News;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -16,7 +15,7 @@ public interface FileMapper {
     @Insert("insert into m_file(uuid,file,ctime,name) values(#{uuid},#{file},#{ctime},#{name})")
     int insert(File file);
 
-    @Select("select * from m_file order by uuid desc limit #{from},#{size}")
+    @Select("select uuid,ctime,name from m_file order by uuid desc limit #{from},#{size}")
     List<File> list(int from, int size);
 
     @Select("select count(*) as total from m_file")
