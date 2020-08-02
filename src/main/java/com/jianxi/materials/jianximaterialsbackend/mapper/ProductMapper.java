@@ -10,6 +10,7 @@ import java.util.List;
  * @since 2020-07-25
  */
 @Mapper
+@CacheNamespace(flushInterval = 86400000L)
 public interface ProductMapper {
 
     @Insert("insert into m_product(name,introduce,img) values(#{name},#{introduce},#{img})")
@@ -21,7 +22,7 @@ public interface ProductMapper {
     @Select("select * from m_product order by id desc limit #{from},#{size}")
     List<Product> list(int from, int size);
 
-    @Select("select * from m_product order by id desc")
+    @Select("select id,name from m_product order by id desc")
     List<Product> listAll();
 
     @Select("select count(*) as total from m_product")

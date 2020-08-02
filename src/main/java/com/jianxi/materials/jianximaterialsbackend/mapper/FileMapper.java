@@ -10,6 +10,7 @@ import java.util.List;
  * @since 2020-07-26
  */
 @Mapper
+@CacheNamespace(flushInterval = 86400000L)
 public interface FileMapper {
 
     @Insert("insert into m_file(uuid,file,ctime,name) values(#{uuid},#{file},#{ctime},#{name})")
