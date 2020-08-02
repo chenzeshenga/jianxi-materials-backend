@@ -14,9 +14,11 @@ import java.util.List;
 public interface ProductMapper {
 
     @Insert("insert into m_product(name,introduce,img) values(#{name},#{introduce},#{img})")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
     int insert(Product product);
 
     @Update("update m_product set name=#{name},introduce=#{introduce},img=#{img} where id=#{id}")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
     int update(Product product);
 
     @Select("select * from m_product order by id desc limit #{from},#{size}")
@@ -29,6 +31,7 @@ public interface ProductMapper {
     long total();
 
     @Delete("delete from m_product where id=#{id}")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
     int delete(String id);
 
     @Select("select * from m_product where id=#{id} limit 1")

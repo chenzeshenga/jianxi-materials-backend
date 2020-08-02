@@ -14,6 +14,7 @@ import java.util.List;
 public interface FileMapper {
 
     @Insert("insert into m_file(uuid,file,ctime,name) values(#{uuid},#{file},#{ctime},#{name})")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
     int insert(File file);
 
     @Select("select uuid,ctime,name from m_file order by uuid desc limit #{from},#{size}")
@@ -23,6 +24,7 @@ public interface FileMapper {
     long totalAll();
 
     @Delete("delete from m_file where uuid=#{uuid}")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
     int delete(String uuid);
 
     @Select("select * from m_file where uuid=#{uuid} limit 1")

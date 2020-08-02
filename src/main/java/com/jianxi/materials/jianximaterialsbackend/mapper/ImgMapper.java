@@ -1,10 +1,7 @@
 package com.jianxi.materials.jianximaterialsbackend.mapper;
 
 import com.jianxi.materials.jianximaterialsbackend.pojo.Img;
-import org.apache.ibatis.annotations.CacheNamespace;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 /**
  * @author chenzeshenga
@@ -18,6 +15,7 @@ public interface ImgMapper {
     Img getImgByUuid(String uuid);
 
     @Insert({"insert into m_img(uuid,img) values (#{uuid},#{img})"})
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
     int insert(Img img);
 
 }
