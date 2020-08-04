@@ -21,5 +21,7 @@ public class Product implements Serializable {
     private String name;
     private String introduce;
     private String img;
+    private String category;
+    private String level;
 
 }

@@ -13,18 +13,18 @@ import java.util.List;
 @CacheNamespace(flushInterval = 86400000L)
 public interface ProductMapper {
 
-    @Insert("insert into m_product(name,introduce,img) values(#{name},#{introduce},#{img})")
+    @Insert("insert into m_product(name,introduce,img,category) values(#{name},#{introduce},#{img},#{category})")
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     int insert(Product product);
 
-    @Update("update m_product set name=#{name},introduce=#{introduce},img=#{img} where id=#{id}")
+    @Update("update m_product set name=#{name},introduce=#{introduce},img=#{img},category=#{category} where id=#{id}")
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     int update(Product product);
 
     @Select("select * from m_product order by id desc limit #{from},#{size}")
     List<Product> list(int from, int size);
 
-    @Select("select id,name from m_product order by id desc")
+    @Select("select id,name,category,level from m_product order by id desc")
     List<Product> listAll();
 
     @Select("select count(*) as total from m_product")

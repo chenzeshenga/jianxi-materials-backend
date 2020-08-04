@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,7 +44,21 @@ public class ProductController {
 
     @PostMapping("listAll")
     public List<Product> listAll() {
-        return productMapper.listAll();
+        List<Product> productList = productMapper.listAll();
+        List<Product> result = new ArrayList<>();
+        for (Product product : productList) {
+            String category = product.getCategory();
+            String level = product.getLevel();
+            if ("0".equals(level)) {
+                result.add(product);
+                for (Product sub : productList) {
+                    if ("1".equals(sub.getLevel()) && category.equals(sub.getCategory())) {
+                        result.add(sub);
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     @GetMapping("/delete/{id}")
