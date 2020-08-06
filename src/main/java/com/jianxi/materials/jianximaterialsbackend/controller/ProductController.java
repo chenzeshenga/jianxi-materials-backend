@@ -68,7 +68,7 @@ public class ProductController {
     }
 
     @GetMapping()
-    public Product getProduct(@RequestParam String id) {
+    public List<Product> getProduct(@RequestParam String id) {
         return productMapper.getProduct(id);
     }
 

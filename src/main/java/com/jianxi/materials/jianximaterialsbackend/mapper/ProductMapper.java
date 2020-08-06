@@ -34,7 +34,7 @@ public interface ProductMapper {
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     int delete(String id);
 
-    @Select("select * from m_product where id=#{id} limit 1")
-    Product getProduct(String id);
+    @Select("select * from m_product where category=#{id}")
+    List<Product> getProduct(String id);
 
 }
