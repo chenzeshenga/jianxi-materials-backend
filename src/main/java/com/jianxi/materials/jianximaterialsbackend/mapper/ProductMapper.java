@@ -10,7 +10,6 @@ import java.util.List;
  * @since 2020-07-25
  */
 @Mapper
-@CacheNamespace(flushInterval = 86400000L)
 public interface ProductMapper {
 
     @Insert("insert into m_product(name,introduce,img,category) values(#{name},#{introduce},#{img},#{category})")
@@ -24,7 +23,7 @@ public interface ProductMapper {
     @Select("select * from m_product order by id desc limit #{from},#{size}")
     List<Product> list(int from, int size);
 
-    @Select("select id,name,category,level from m_product order by id desc")
+    @Select("select id,name,introduce,img,category,level,`order` from m_product order by `order` asc")
     List<Product> listAll();
 
     @Select("select count(*) as total from m_product")
@@ -34,7 +33,7 @@ public interface ProductMapper {
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     int delete(String id);
 
-    @Select("select * from m_product where category=#{id}")
+    @Select("select * from m_product where id=#{id}")
     List<Product> getProduct(String id);
 
 }

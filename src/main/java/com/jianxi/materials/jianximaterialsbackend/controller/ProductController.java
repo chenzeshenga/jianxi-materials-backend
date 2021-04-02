@@ -3,7 +3,10 @@ package com.jianxi.materials.jianximaterialsbackend.controller;
 import com.jianxi.materials.jianximaterialsbackend.mapper.ProductMapper;
 import com.jianxi.materials.jianximaterialsbackend.pojo.Pagination;
 import com.jianxi.materials.jianximaterialsbackend.pojo.Product;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -34,12 +37,8 @@ public class ProductController {
     }
 
     @PostMapping("list")
-    public Pagination<Product> list(@RequestBody Pagination pagination) {
-        int current = pagination.getCurrent();
-        int size = pagination.getSize();
-        List<Product> productList = productMapper.list((current - 1) * size, size);
-        long total = productMapper.total();
-        return new Pagination<>(productList, total, current, size);
+    public List<Product> list() {
+        return productMapper.list(0, 999);
     }
 
     @PostMapping("listAll")
@@ -49,16 +48,45 @@ public class ProductController {
         for (Product product : productList) {
             String category = product.getCategory();
             String level = product.getLevel();
+            List<Product> subProductList = new ArrayList<>();
             if ("0".equals(level)) {
                 result.add(product);
                 for (Product sub : productList) {
                     if ("1".equals(sub.getLevel()) && category.equals(sub.getCategory())) {
-                        result.add(sub);
+                        subProductList.add(sub);
                     }
                 }
             }
+            product.setSub(subProductList);
         }
+        result = result.stream().sorted(Comparator.comparingInt(Product::getOrder)).collect(Collectors.toList());
         return result;
+    }
+
+    @GetMapping("listProductDetail")
+    public List<Product> listProductDetail(@RequestParam String id) {
+        List<Product> productList = productMapper.listAll();
+        List<Product> result = new ArrayList<>();
+        for (Product product : productList) {
+            String category = product.getCategory();
+            String level = product.getLevel();
+            List<Product> subProductList = new ArrayList<>();
+            if ("0".equals(level)) {
+                result.add(product);
+                for (Product sub : productList) {
+                    if ("1".equals(sub.getLevel()) && category.equals(sub.getCategory())) {
+                        subProductList.add(sub);
+                    }
+                }
+            }
+            product.setSub(subProductList);
+        }
+        result = result.stream().sorted(Comparator.comparingInt(Product::getOrder)).collect(Collectors.toList());
+        if (id == null || "".equals(id) || "undefined".equals(id)) {
+            return result;
+        } else {
+            return result.stream().filter(product -> id.equals(String.valueOf(product.getId()))).collect(Collectors.toList());
+        }
     }
 
     @GetMapping("/delete/{id}")

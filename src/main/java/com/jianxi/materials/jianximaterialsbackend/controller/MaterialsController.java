@@ -31,7 +31,7 @@ import java.util.UUID;
  * @since 2020-07-26
  */
 @RestController
-@RequestMapping("/document")
+@RequestMapping("/materials")
 @Slf4j
 @CrossOrigin("*")
 public class MaterialsController {
